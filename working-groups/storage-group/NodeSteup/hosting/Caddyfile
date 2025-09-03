@@ -1,4 +1,7 @@
 # Joystream-node
+wss://<your.cool.url>/rpc {
+        reverse_proxy localhost:9944
+}
 
 # Prometheus
 https://prometheus.<your.cool.url> {
@@ -13,6 +16,29 @@ https://grafana.<your.cool.url> {
         reverse_proxy grafana:3000
 }
 
+# Query-node
+https://<your.cool.url> {
+        log {
+                output stdout
+        }
+        route /server/* {
+                uri strip_prefix /server
+                reverse_proxy localhost:8081
+        }
+        route /graphql {
+                reverse_proxy localhost:8081
+        }
+        route /graphql/* {
+                reverse_proxy localhost:8081
+        }
+        route /gateway/* {
+                uri strip_prefix /gateway
+                reverse_proxy localhost:4000
+        }
+        route /@apollographql/* {
+                reverse_proxy localhost:8081
+        }
+}
 # Storage Node
 https://<your.cool.url>/storage/* {
         log {
@@ -20,14 +46,13 @@ https://<your.cool.url>/storage/* {
         }
         route /storage/* {
                 uri strip_prefix /storage
-                reverse_proxy storage:3333
-                #reverse_proxy localhost:3333
+                reverse_proxy localhost:3333
         }
         header /storage/api/v1/ {
                 Access-Control-Allow-Methods "GET, PUT, HEAD, OPTIONS"
                 Access-Control-Allow-Headers "GET, PUT, HEAD, OPTIONS"
         }
         request_body {
-                max_size 60GB
+                max_size 10GB
         }
 }

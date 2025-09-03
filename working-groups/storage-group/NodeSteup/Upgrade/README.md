@@ -21,16 +21,14 @@ if you are running as a service
 $ systemctl stop storage-node.service
 ```
 
-## Stop the query node (Only if the QN upgrade is part of the upgrade)
+## Stop the query node
 ```
-$ docker stop indexer processor graphql-server
-$ docker rm indexer processor graphql-server
+$ ./query-node/kill.sh
 ```
 ## Get the lastest and greatest repo
 ```
 $ git stash
 $ git pull
-$ git stash pop
 ```
 
 ## apply .env sh - you can use values from old backup file
@@ -38,35 +36,19 @@ $ git stash pop
 ## Run the setup script
 ```
  $ ./setup.sh
-
-
-$ nono docker-compose.yml
-  hydra-indexer-gateway:
-    image: joystream/hydra-indexer-gateway:5.0.0-alpha.1
-  indexer:
-    image: joystream/hydra-indexer:v5.0.0-alpha.1
-  processor:
-    image: joystream/query-node:1.6.0
-  graphql-server:
-    image: joystream/query-node:1.6.0 
 ```
+## logout here and login back 
 
-## Update container image 
+## Build
 
-Below example for colossus
 ```
-  colossus-1:
-    image: joystream/storage-node:3.10.2
+$ ./build-packages.sh 
 ```
-## Start the QN (Only if the QN upgrade is part of the upgrade)
+## Start the services
 ```
 $ query-node/start.sh
-
-```
-
-## Start the Storage service
-```
-$ docker-compose up --detach --force-recreate --remove-orphans  colossus-1
+or
+$ docker-compose up --detach --build colossus-1
 
 ```
 

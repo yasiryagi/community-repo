@@ -1,9 +1,4 @@
-
-
-
-
 ## Scaling Consideration
-
 ### Replication
 
 Joystream implement a replication policy for data loss prevention. All videos uploaded are replicated to number of server per the configured replication.\
@@ -23,8 +18,6 @@ All the calculation on this page assume a replication of 4.
 
 
 ### Required Capacity
-
-
 Below the required storage capacity per year as demand for video upload increase. The numbers below driven form parameters above.
 
 | Hours uploaded per min | 0.01      | 0.05     | 0.25     | 0.5      | 1         | 3         | 8         | 12         | 22         | 53         | 500        |
@@ -34,7 +27,6 @@ Below the required storage capacity per year as demand for video upload increase
 
 
 ###  Disk
-
 - Disk read/write &  IOP ((input/output operations): 100-160 MB/s for HDD
 
 |      | Read/Write | IPOS   | Capacity GB | Reliability (MTBF) | Price per GB (USD) |
@@ -55,9 +47,7 @@ Below the required storage capacity per year as demand for video upload increase
 - SAN
 - NAS 
 
-
 ### Calculation  of required workers
-
 #### Formulas
 >```Formula: Worker Disk size GB=	 (((uploaded hrs per mins* 60(hr) * 24 (day) * 365 (year))*3600) * (%4k * Bitrate-4k + %1080 * Bitrate1080 + %720 * Bitrate720 + %480 * Bitrate48  ))  / (8 (Bytes) *1000)```
 
@@ -67,7 +57,6 @@ Below are three models with a server capacity of 10,100 and 500TB
 
 #### Server - 10T
 
-
 | Hours uploaded per min | 0.01      | 0.05     | 0.25     | 0.5      | 1         | 3         | 8         | 12         | 22         | 53         | 500        |
 |------------------------|-----------|----------|----------|----------|-----------|-----------|-----------|------------|------------|------------|------------|
 | Number of videos       | 21024     | 105120   | 525600   | 1051200  | 2102400   | 6307200   | 16819200  | 25228800   | 46252800   | 111427200  | 1051200000 |
@@ -76,7 +65,6 @@ Below are three models with a server capacity of 10,100 and 500TB
 | Workers                | 8         | 24       | 120      | 236      | 472       | 1412      | 3764      | 5644       | 10348      | 24924      | 235104     |
 
 #### Server - 100T
-
 
 | Hours uploaded per min | 0.01      | 0.05     | 0.25     | 0.5      | 1         | 3         | 8         | 12         | 22         | 53         | 500      |
 |------------------------|-----------|----------|----------|----------|-----------|-----------|-----------|------------|------------|------------|----------|
@@ -104,27 +92,22 @@ Below are three models with a server capacity of 10,100 and 500TB
 |         |                |              |                    |                         |                         |                                                 | Replace node operator at 85%"                                                                            |          |
 
 ## Improvements to achieve scaling:
-- Enable pruning                                                          
-- Enable multi node per operator/bucket                                   
-- Increase onchain number of operators 
-- Consider using sharding                                   
+- Enable pruning
+- Enable multi node per operator / bucket
+- Increase onchain number of operators
+- Consider using sharding
 
 ## Consilderation:
-- Increase replication                                                             
+- Increase replication
 - change the compensation mode to be: base%+server%+Used storage%+ Unused storage%
 
 ## Dashboards
-
-- [Joystream Dashboard](https://dapplooker.com/dashboard/joystream-mainnet-dashboard-328) 
+- [Joystream Dashboard](https://dapplooker.com/dashboard/joystream-mainnet-dashboard-328)
 - [Storage Group Dashboard](https://grafana.joystream.yyagi.cloud/d/gukTpcA4z/storage-work-group-dashboard?orgId=1)
-  
-## Refs
 
+## Refs
 - [what-content-dominates-youtube](https://pex.com/blog/what-content-dominates-youtube/)
 - [statista](https://www.statista.com/topics/2019/youtube/#topicHeader__wrapper)
 - [hard-drive-vs-ssd-vs-nvme](https://www.soladrive.com/hard-drive-vs-ssd-vs-nvme/)
 - [diskprices](https://diskprices.com/)
 - [data-storage](https://www.redhat.com/en/topics/data-storage)
-
-
-
